@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "es6",
+        "module": "umd",
         "target": "es5",
         "noImplicitAny": true,
         "outDir": "dist",
