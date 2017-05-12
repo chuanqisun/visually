@@ -1,9 +1,7 @@
 {
   "name": "visually",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "modules for UI design and prototyping",
-  "main": "dist/index.js",
-  "typings": "dist/index",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
