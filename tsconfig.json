@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "module": "umd",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "outDir": "dist",
+        "rootDir": "src",
+        "declaration": true
+    },
+    "files": [
+        "src/modules/color/index.ts"
+    ]
+}

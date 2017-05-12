@@ -1,0 +1,34 @@
+{
+  "name": "visually",
+  "version": "0.0.1",
+  "description": "ES6 modules for UI design and prototyping",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/henrysun918/visually.git"
+  },
+  "keywords": [
+    "a11y",
+    "color",
+    "ui",
+    "ux",
+    "design",
+    "prototype",
+    "prototyping"
+  ],
+  "author": "Chuanqi Sun <chuanqi.sun.15@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/henrysun918/visually/issues"
+  },
+  "homepage": "https://github.com/henrysun918/visually#readme",
+  "devDependencies": {
+    "typescript": "^2.3.2"
+  },
+  "peerDependencies": {
+    "typescript": "^2.3.2"
+  }
+}
