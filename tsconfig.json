@@ -1,13 +1,13 @@
 {
     "compilerOptions": {
-        "module": "umd",
+        "module": "commonjs",
+        "target": "es5",
         "noImplicitAny": true,
-        "removeComments": true,
         "outDir": "dist",
         "rootDir": "src",
         "declaration": true
     },
     "files": [
-        "src/modules/color/index.ts"
+        "src/index.ts"
     ]
 }
