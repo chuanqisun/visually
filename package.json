@@ -7,7 +7,8 @@
   "module": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "test": "tsc && mocha --compilers js:babel-core/register \"dist/**/*.spec.js\""
+    "test": "tsc && mocha --compilers js:babel-core/register \"dist/**/*.spec.js\"",
+    "test:debug": "tsc && mocha --compilers js:babel-core/register \"dist/**/*.spec.js\" --debug-brk"
   },
   "repository": {
     "type": "git",
@@ -34,7 +35,9 @@
     "babel-core": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
     "chai": "^3.5.0",
+    "jsdom": "^11.0.0",
     "mocha": "^3.4.1",
+    "rxjs": "^5.4.0",
     "typescript": "^2.3.2"
   },
   "peerDependencies": {
