@@ -1,23 +1,52 @@
 export class Color {
-    private r: number;
-    private g: number;
-    private b: number;
-    private a: number;
+    /**
+     * underlying representation
+     * r,g,b: 0-255
+     * a: 0-1
+     */
+    private rgba: number[] = [undefined, undefined, undefined, undefined];
 
     constructor(value: string) {
         this.setColorFromValue(value);
     }
 
-    public get rgba(): string {
-        return `rgba(${this.r}, ${this.g}, ${this.b}, ${this.a})`;
+    public get red(): number {
+        return this.rgba[0];
     }
 
-    public get hex(): string {
-        return `#${this.convert256toHex(this.r)}${this.convert256toHex(this.g)}${this.convert256toHex(this.b)}`;
+    public get green(): number {
+        return this.rgba[1];
+    }
+
+    public get blue(): number {
+        return this.rgba[2];
+    }
+
+    public get alpha(): number {
+        return this.rgba[3];
+    }
+
+    public get rgbaString(): string {
+        return `rgba(${this.rgba[0]}, ${this.rgba[1]}, ${this.rgba[2]}, ${this.rgba[3]})`;
+    }
+
+    public get hexString(): string {
+        return `#${this.convert256toHex(this.rgba[0])}${this.convert256toHex(this.rgba[1])}${this.convert256toHex(this.rgba[2])}`;
     }
 
     public get luminance(): number {
-        return .2126 * this.getLuminanceComponent(this.r) + .7152 * this.getLuminanceComponent(this.g) + 0.0722 * this.getLuminanceComponent(this.b);
+        return .2126 * this.getLuminanceComponent(this.rgba[0]) + .7152 * this.getLuminanceComponent(this.rgba[1]) + 0.0722 * this.getLuminanceComponent(this.rgba[2]);
+    }
+
+    public getContrastOnBackground(color: Color): number {
+        // TODO support transparent foreground
+        if (this.alpha !== 1 || color.alpha !== 1) {
+            throw 'transparent color contrast not supported yet'
+        }
+
+        // https://www.w3.org/TR/WCAG20/#contrast-ratiodef
+        const contrast = this.luminance > color.luminance ? (this.luminance + 0.05)/(color.luminance + 0.05) : (color.luminance + 0.05)/(this.luminance + 0.05);
+        return this.roundToPrecision(contrast, 1);
     }
 
     private setColorFromValue(value: string) {
@@ -37,10 +66,10 @@ export class Color {
     private setColorFromHex(hexString: string) {
         let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hexString);
         if (result && result.length === 4) {
-            this.r = parseInt(result[1], 16);
-            this.g = parseInt(result[2], 16);
-            this.b = parseInt(result[3], 16);
-            this.a = 1;
+            this.rgba[0] = parseInt(result[1], 16);
+            this.rgba[1] = parseInt(result[2], 16);
+            this.rgba[2] = parseInt(result[3], 16);
+            this.rgba[3] = 1;
         } else {
             throw 'invalid hex value';
         }
@@ -49,10 +78,10 @@ export class Color {
     private setColorFromRbga(rbgaString: string) {
         let result = /^rgba\(([\d]+), *([\d]+), *([\d]+), *(\d*\.?\d*)\)$/.exec(rbgaString);
         if (result && result.length === 5) {
-            this.r = parseInt(result[1]);
-            this.g = parseInt(result[2]);
-            this.b = parseInt(result[3]);
-            this.a = parseFloat(result[4]);
+            this.rgba[0] = parseInt(result[1]);
+            this.rgba[1] = parseInt(result[2]);
+            this.rgba[2] = parseInt(result[3]);
+            this.rgba[3] = parseFloat(result[4]);
         } else {
             throw 'invalid rgba value' ;
         }
@@ -69,6 +98,14 @@ export class Color {
     private getLuminanceComponent(rawValue: number): number {
         let result = rawValue / 255; // 8bit -> sRGB
         return result < .03928 ? result / 12.92 : Math.pow((result + .055) / 1.055, 2.4);
+    }
+
+    private roundToPrecision(value: number, precision: number): number {
+		precision = +precision || 0;
+
+		var multiplier = Math.pow(10, precision);
+
+		return Math.round(value * multiplier) / multiplier;
     }
 }
 
