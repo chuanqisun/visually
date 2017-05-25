@@ -1,4 +1,5 @@
-import { Observable, Subject } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 
 export class FilePicker {
     private filesPickedInternal = new Subject<File[]>();
