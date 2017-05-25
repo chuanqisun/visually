@@ -1,6 +1,6 @@
 {
   "name": "visually",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "modules for UI design and prototyping",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -39,7 +39,7 @@
     "mocha": "^3.4.1",
     "typescript": "^2.3.2"
   },
-  "peerDependencies": {
+  "dependencies": {
     "rxjs": "^5.4.0"
   }
 }
