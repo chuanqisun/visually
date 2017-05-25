@@ -1,7 +1,7 @@
 import { Observable, Subject } from 'rxjs/Rx';
 
 export class FilePicker {
-    private filesPickedInternal = new Subject<FileList>();
+    private filesPickedInternal = new Subject<File[]>();
     public filesPicked = this.filesPickedInternal.asObservable();
 
     constructor(private inputElement: HTMLInputElement) {
@@ -10,13 +10,18 @@ export class FilePicker {
 
     public reset() {
         this.inputElement.value = '';
+        this.filesPickedInternal.next([]);
     }
 
     private attachEventHandler() {
         this.inputElement.addEventListener('change', (event) => {
-            const fileList = (event.target as any).files as FileList;
+            const fileList = (event.target as HTMLInputElement).files;
             if (fileList.length > 0) {
-                this.filesPickedInternal.next(fileList);
+                let fileArray = [] as File[];
+                for(let i = 0, l = fileList.length; i < l; i++) {
+                    fileArray.push(fileList[i]);
+                }
+                this.filesPickedInternal.next(fileArray);
             }
         });
     }
