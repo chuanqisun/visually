@@ -1,6 +1,6 @@
 {
   "name": "visually",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "description": "modules for UI design and prototyping",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

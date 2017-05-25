@@ -6,7 +6,7 @@ export class Color {
      * r,g,b: 0-255
      * a: 0-1
      */
-    private rgba: ColorModel = [undefined, undefined, undefined, undefined];
+    public readonly rgba: ColorModel = [undefined, undefined, undefined, undefined];
 
     constructor(value: string);
     constructor(rgba: ColorModel);
