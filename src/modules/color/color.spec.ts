@@ -4,7 +4,15 @@ import 'mocha'
 
 describe('color module', () => {
     describe('color creation', () => {
-        it('should create from rgba color', () => {
+        it('should create from rgba array', () => {
+            const color = new Color([1, 128, 255, 1]);
+            expect(color.red).to.equal(1);
+            expect(color.green).to.equal(128);
+            expect(color.blue).to.equal(255);
+            expect(color.alpha).to.equal(1);
+        });
+
+        it('should create from rgba string', () => {
             const color = new Color('rgba(1, 128, 255, 1)');
             expect(color.red).to.equal(1);
             expect(color.green).to.equal(128);
@@ -12,7 +20,7 @@ describe('color module', () => {
             expect(color.alpha).to.equal(1);
         });
 
-        it('should create from rgba color without space', () => {
+        it('should create from rgba string without space', () => {
             const color = new Color('rgba(1,128,255,1)');
             expect(color.red).to.equal(1);
             expect(color.green).to.equal(128);
@@ -20,7 +28,7 @@ describe('color module', () => {
             expect(color.alpha).to.equal(1);
         });
 
-        it('should create from hex color', () => {
+        it('should create from hex string', () => {
             const color = new Color('#00FFFF');
             expect(color.red).to.equal(0);
             expect(color.green).to.equal(255);
@@ -28,7 +36,7 @@ describe('color module', () => {
             expect(color.alpha).to.equal(1);
         });
 
-        it('should create from semi-transparent rgba color', () => {
+        it('should create from semi-transparent rgba string', () => {
             const color = new Color('rgba(1, 128, 255, 0.5)');
             expect(color.red).to.equal(1);
             expect(color.green).to.equal(128);
@@ -36,31 +44,35 @@ describe('color module', () => {
             expect(color.alpha).to.equal(0.5);
         });
 
-        it('should throw on 3 digit hex value', () => {
+        it('should throw on rgb array', () => {
+            expect(() => new Color([255, 255, 255] as any)).to.throw();
+        });
+
+        it('should throw on 3 digit hex string', () => {
             expect(() => new Color('#000')).to.throw();
         });
 
-        it('should throw on empty value', () => {
+        it('should throw on empty string', () => {
             expect(() => new Color('')).to.throw();
         });
 
-        it('should throw on rgba color without alpha channel', () => {
+        it('should throw on rgba string without alpha channel', () => {
             expect(() => new Color('rgba(255, 255, 255)')).to.throw();
         });
     });
 
     describe('value retrieval', () => {
-        it('should retrieve rgba color', () => {
+        it('should retrieve rgba string', () => {
             const color = new Color('rgba(0, 0, 255, 0.5)');
             expect(color.rgbaString).to.equal('rgba(0, 0, 255, 0.5)');
         });
 
-        it('should retrieve hex color', () => {
+        it('should retrieve hex string', () => {
             const color = new Color('rgba(0, 0, 255, 0.5)');
             expect(color.hexString).to.equal('#0000FF');
         });
 
-        it('should retrieve hex color with 1 digit being 0', () => {
+        it('should retrieve hex string with 1 digit being 0', () => {
             const color = new Color('rgba(15, 15, 15, 1)');
             expect(color.hexString).to.equal('#0F0F0F');
         });

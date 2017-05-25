@@ -1,13 +1,24 @@
+export type ColorModel = [number, number, number, number];
+
 export class Color {
     /**
      * underlying representation
      * r,g,b: 0-255
      * a: 0-1
      */
-    private rgba: number[] = [undefined, undefined, undefined, undefined];
+    private rgba: ColorModel = [undefined, undefined, undefined, undefined];
 
-    constructor(value: string) {
-        this.setColorFromValue(value);
+    constructor(value: string);
+    constructor(rgba: ColorModel);
+    constructor(args: string | ColorModel) {
+        if (Array.isArray(args) && args.length === 4) {
+            this.rgba = args.slice() as ColorModel; // clone
+        } else if (typeof args === 'string'){
+            const value = args as string;
+            this.setColorFromString(value);
+        } else {
+            throw 'invalid parameters for constructor';
+        }
     }
 
     public get red(): number {
@@ -49,7 +60,7 @@ export class Color {
         return this.roundToPrecision(contrast, 1);
     }
 
-    private setColorFromValue(value: string) {
+    private setColorFromString(value: string) {
         const type = inferValueType(value);
         switch (type) {
             case 'hex':
