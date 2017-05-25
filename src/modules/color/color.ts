@@ -10,9 +10,12 @@ export class Color {
 
     constructor(value: string);
     constructor(rgba: ColorModel);
-    constructor(args: string | ColorModel) {
+    constructor(color: Color);
+    constructor(args: string | ColorModel | Color) {
         if (Array.isArray(args) && args.length === 4) {
             this.rgba = args.slice() as ColorModel; // clone
+        } else if (args instanceof Color) {
+            this.rgba = args.rgba.slice() as ColorModel; // clone
         } else if (typeof args === 'string'){
             const value = args as string;
             this.setColorFromString(value);

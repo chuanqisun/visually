@@ -12,6 +12,15 @@ describe('color module', () => {
             expect(color.alpha).to.equal(1);
         });
 
+        it('should create from another color', () => {
+            const otherColor = new Color([1, 128, 255, 1]);
+            const color = new Color(otherColor);
+            expect(color.red).to.equal(1);
+            expect(color.green).to.equal(128);
+            expect(color.blue).to.equal(255);
+            expect(color.alpha).to.equal(1);
+        });
+
         it('should create from rgba string', () => {
             const color = new Color('rgba(1, 128, 255, 1)');
             expect(color.red).to.equal(1);
