@@ -11,7 +11,6 @@ export class FilePicker {
 
     public reset() {
         this.inputElement.value = '';
-        this.filesPickedInternal.next([]);
     }
 
     private attachEventHandler() {

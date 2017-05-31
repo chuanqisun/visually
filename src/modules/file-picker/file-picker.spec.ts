@@ -46,17 +46,5 @@ describe('file-picker module', () => {
 
             input.dispatchEvent(changeEvent);
         });
-
-        it('should emit empty array on reset', (done) => {
-            const input = document.createElement('input') as HTMLInputElement;
-            const filePicker = new FilePicker(input);
-
-            filePicker.filesPicked.subscribe(fileList => {
-                expect(fileList.length).to.equal(0);
-                done();
-            });
-
-            filePicker.reset();
-        });
     });
 });
