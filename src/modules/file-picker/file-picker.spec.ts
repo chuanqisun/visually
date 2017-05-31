@@ -1,26 +1,17 @@
 import { FilePicker } from './file-picker';
 import { expect } from 'chai';
-import { createDOM, destoryDOM } from '../../test-utils/jsdom';
 
 import 'mocha';
 
-function getMockFileList(): any[] {
+function getMockFileList(): File[] {
     return [
-        { name: 'filename1'},
-        { name: 'filename2'},
-        { name: 'filename3'},
+        new File(['mockcontent'], 'filename1'),
+        new File(['mockcontent'], 'filename2'),
+        new File(['mockcontent'], 'filename3'),
     ];
 }
 
 describe('file-picker module', () => {
-    beforeEach(() => {
-        createDOM();
-    });
-
-    afterEach(()=> {
-        destoryDOM();
-    });
-
     describe('dom attachment', () => {
         it('should attach to dom input element', () => {
             const input = document.createElement('input') as HTMLInputElement;

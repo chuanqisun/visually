@@ -4,3 +4,4 @@ src
 tsconfig.json
 *.spec.*
 .babelrc
+dist/testing
